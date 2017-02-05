@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ActivityCreateDlg" widgetVar="ActivityCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateActivityTitle}">
+            <h:form id="ActivityCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{activityController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateActivityLabel_activityId}" for="activityId" />
+                        <p:inputText id="activityId" value="#{activityController.selected.activityId}" title="#{bundle.CreateActivityTitle_activityId}" required="true" requiredMessage="#{bundle.CreateActivityRequiredMessage_activityId}"/>
+                        <p:outputLabel value="#{bundle.CreateActivityLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{activityController.selected.name}" title="#{bundle.CreateActivityTitle_name}" required="true" requiredMessage="#{bundle.CreateActivityRequiredMessage_name}"/>
+                        <p:outputLabel value="#{bundle.CreateActivityLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{activityController.selected.description}" title="#{bundle.CreateActivityTitle_description}" />
+                        <p:outputLabel value="#{bundle.CreateActivityLabel_start}" for="start" />
+                        <p:calendar id="start" pattern="MM/dd/yyyy HH:mm:ss" value="#{activityController.selected.start}" title="#{bundle.EditActivityTitle_start}" required="true" requiredMessage="#{bundle.EditActivityRequiredMessage_start}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateActivityLabel_end}" for="end" />
+                        <p:calendar id="end" pattern="MM/dd/yyyy HH:mm:ss" value="#{activityController.selected.end}" title="#{bundle.EditActivityTitle_end}" required="true" requiredMessage="#{bundle.EditActivityRequiredMessage_end}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateActivityLabel_indikator}" for="indikator" />
+                        <p:inputText id="indikator" value="#{activityController.selected.indikator}" title="#{bundle.CreateActivityTitle_indikator}" />
+                        <p:outputLabel value="#{bundle.CreateActivityLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{activityController.selected.status}" title="#{bundle.CreateActivityTitle_status}" />
+                        <p:outputLabel value="#{bundle.CreateActivityLabel_completed}" for="completed" />
+                        <p:inputText id="completed" value="#{activityController.selected.completed}" title="#{bundle.CreateActivityTitle_completed}" />
+                        <p:outputLabel value="#{bundle.CreateActivityLabel_createdAt}" for="createdAt" />
+                        <p:calendar id="createdAt" pattern="MM/dd/yyyy HH:mm:ss" value="#{activityController.selected.createdAt}" title="#{bundle.EditActivityTitle_createdAt}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateActivityLabel_strategicActivitiesId}" for="strategicActivitiesId" />
+                        <p:selectOneMenu id="strategicActivitiesId" value="#{activityController.selected.strategicActivitiesId}" >
+                            <f:selectItems value="#{strategicActivityController.itemsAvailableSelectOne}"
+                                           var="strategicActivitiesIdItem"
+                                           itemValue="#{strategicActivitiesIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateActivityLabel_strategyId}" for="strategyId" />
+                        <p:selectOneMenu id="strategyId" value="#{activityController.selected.strategyId}" >
+                            <f:selectItems value="#{strategyController.itemsAvailableSelectOne}"
+                                           var="strategyIdItem"
+                                           itemValue="#{strategyIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{activityController.create}" value="#{bundle.Save}" update="display,:ActivityListForm:datagrid,:growl" oncomplete="handleSubmit(args,'ActivityCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ActivityCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

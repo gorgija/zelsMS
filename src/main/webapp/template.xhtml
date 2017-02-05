@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>>Default Title
+            <ui:insert name="title">ZELS</ui:insert>
+        </title>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+    </h:head>
+
+    <h:body>
+
+        <p:growl id="growl" life="13000" />
+
+        <p:layout fullPage="true" >
+            <p:layoutUnit position="north" size="80" resizable="true" collapsible="true"   >
+                <h:form>   
+                    <p:menubar  >
+                        <p:menuitem><p:spacer width="50" /></p:menuitem>
+                        <p:menuitem ><p:clock  /></p:menuitem>
+                        <p:menuitem><p:spacer width="50" /></p:menuitem>
+                        <p:menuitem > <p:graphicImage library="img" name="logo.png" width="30" />  </p:menuitem>
+                        <p:menuitem><p:spacer width="50" /></p:menuitem>
+                        <p:menuitem  value="#{bundle.Home}" outcome="/app/index" icon="ui-icon-home"/>
+                        <p:menuitem value="Activity" outcome="/app/activity/List.xhtml" />
+                        <p:menuitem value="Comments" outcome="/app/comments/List.xhtml" />
+                        <p:menuitem value="Files" outcome="/app/files/List.xhtml" />
+                        <p:menuitem value="Members" outcome="/app/members/List.xhtml" />
+                        <p:menuitem value="Priority" outcome="/app/priority/List.xhtml" />
+                        <p:menuitem value="Roles" outcome="/app/roles/List.xhtml" />
+                        <p:menuitem value="StrategicActivity" outcome="/app/strategicActivity/List.xhtml" />
+                        <p:menuitem value="Strategy" outcome="/app/strategy/List.xhtml" />
+                        <p:menuitem value="Tasks" outcome="/app/tasks/List.xhtml" />
+                        <p:menuitem value="Teams" outcome="/app/teams/List.xhtml" />
+                        <p:menuitem value="Trenings" outcome="/app/trenings/List.xhtml" />
+                        <p:menuitem value="Users" outcome="/app/users/List.xhtml" />
+
+                    </p:menubar>
+                </h:form>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="west" size="200" header="Filters" collapsible="true" resizable="true">
+                <h:form>
+                    <p:panelMenu  >
+                        <p:submenu label="Date" >
+                            <p:menuitem value="Year" style="width: 100%;" >
+                                <p:panelGrid columns="2">
+                                    <p:outputLabel value="Year:" />
+                                    <p:selectOneMenu value="#{activityController.year}" style="width: 100px;" >
+                                        <f:selectItem  itemLabel="2015" itemValue="#{activityController.year}" />
+                                        <f:selectItem itemLabel="2016" itemValue="#{activityController.year}" />
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+                            </p:menuitem>
+
+                            <p:menuitem value="Month Filter" >
+                                <p:panelGrid columns="2">
+                                        <p:outputLabel value="Month" />
+                                        <p:selectOneMenu value="#{activityController.year}" >
+                                            <f:selectItem itemLabel="Januari" itemValue="#{activityController.year}" />
+                                            <f:selectItem itemLabel="Februari" itemValue="#{activityController.year}" />
+                                            <f:selectItem itemLabel="Mart" itemValue="#{activityController.year}" />
+                                            <f:selectItem itemLabel="April" itemValue="#{activityController.year}" />
+                                            <f:selectItem itemLabel="Maj" itemValue="#{activityController.year}" />
+                                            <f:selectItem itemLabel="Juni" itemValue="#{activityController.year}" />
+                                        </p:selectOneMenu>
+                                    </p:panelGrid>
+                            </p:menuitem>
+                        </p:submenu>
+                        <p:submenu label="Teams">
+                            <p:menuitem value="Team" >
+                                <p:panelGrid columns="2">
+                                        <p:outputLabel value="Team:" />
+                                        <p:selectOneMenu value="#{activityController.year}" >
+                                            <f:selectItem itemLabel="ZELS" itemValue="#{activityController.year}" />
+                                            <f:selectItem itemLabel="IK" itemValue="#{activityController.year}" />
+                                        </p:selectOneMenu>
+                                    </p:panelGrid>
+                            </p:menuitem>
+                        </p:submenu>
+                        <p:submenu label="Strategy Activities">
+                            <p:menuitem value="Goal" >
+                                <p:panelGrid columns="2">
+                                        <p:outputLabel value="Goal" />
+                                        <p:selectOneMenu value="#{activityController.year}" >
+                                            <f:selectItem itemLabel="Goal 1" itemValue="#{activityController.year}" />
+                                            <f:selectItem itemLabel="Goal 2" itemValue="#{activityController.year}" />
+                                        </p:selectOneMenu>
+                                    </p:panelGrid>
+                            </p:menuitem>
+                            <p:menuitem value="Strategy" >
+                                <p:panelGrid columns="2">
+                                        <p:outputLabel value="Strategy" />
+                                        <p:selectOneMenu value="#{activityController.year}" >
+                                            <f:selectItem itemLabel="Strategy 1" itemValue="#{activityController.year}" />
+                                            <f:selectItem itemLabel="Strategy 2" itemValue="#{activityController.year}" />
+                                        </p:selectOneMenu>
+                                    </p:panelGrid>
+                            </p:menuitem>
+                        </p:submenu>
+                        <p:submenu label="Activity Actions">
+                            <p:menuitem value="Action" >
+                                <p:panelGrid columns="2">
+                                    <p:outputLabel value="Delete" />
+                                    <p:selectOneMenu value="#{activityController.year}" >
+                                        <f:selectItem itemLabel="Enable" itemValue="#{activityController.year}" />
+                                        <f:selectItem itemLabel="Disable" itemValue="#{activityController.year}" />
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+                            </p:menuitem>
+                        </p:submenu>
+                    </p:panelMenu>
+                </h:form>
+            </p:layoutUnit>
+
+
+            <p:layoutUnit position="south" size="50" collapsed="true" collapsible="true" resizable="true">
+                <ui:insert name="footer"/>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center">
+                <ui:insert name="body"/>
+            </p:layoutUnit>
+
+        </p:layout>
+
+    </h:body>
+
+</html>

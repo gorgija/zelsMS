@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CommentsCreateDlg" widgetVar="CommentsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCommentsTitle}">
+            <h:form id="CommentsCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{commentsController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateCommentsLabel_commentId}" for="commentId" />
+                        <p:inputText id="commentId" value="#{commentsController.selected.commentId}" title="#{bundle.CreateCommentsTitle_commentId}" required="true" requiredMessage="#{bundle.CreateCommentsRequiredMessage_commentId}"/>
+                        <p:outputLabel value="#{bundle.CreateCommentsLabel_text}" for="text" />
+                        <p:inputText id="text" value="#{commentsController.selected.text}" title="#{bundle.CreateCommentsTitle_text}" required="true" requiredMessage="#{bundle.CreateCommentsRequiredMessage_text}"/>
+                        <p:outputLabel value="#{bundle.CreateCommentsLabel_activityId}" for="activityId" />
+                        <p:selectOneMenu id="activityId" value="#{commentsController.selected.activityId}" >
+                            <f:selectItems value="#{activityController.itemsAvailableSelectOne}"
+                                           var="activityIdItem"
+                                           itemValue="#{activityIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateCommentsLabel_userId}" for="userId" />
+                        <p:selectOneMenu id="userId" value="#{commentsController.selected.userId}" >
+                            <f:selectItems value="#{usersController.itemsAvailableSelectOne}"
+                                           var="userIdItem"
+                                           itemValue="#{userIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{commentsController.create}" value="#{bundle.Save}" update="display,:CommentsListForm:datalist,:growl" oncomplete="handleSubmit(args,'CommentsCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CommentsCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

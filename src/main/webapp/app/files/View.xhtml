@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FilesViewDlg" widgetVar="FilesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewFilesTitle}">
+            <h:form id="FilesViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{filesController.selected != null}">
+                        <h:outputText value="#{bundle.ViewFilesLabel_fileId}"/>
+                        <h:outputText value="#{filesController.selected.fileId}" title="#{bundle.ViewFilesTitle_fileId}"/>
+                        <h:outputText value="#{bundle.ViewFilesLabel_name}"/>
+                        <h:outputText value="#{filesController.selected.name}" title="#{bundle.ViewFilesTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewFilesLabel_mimetype}"/>
+                        <h:outputText value="#{filesController.selected.mimetype}" title="#{bundle.ViewFilesTitle_mimetype}"/>
+                        <h:outputText value="#{bundle.ViewFilesLabel_url}"/>
+                        <h:outputText value="#{filesController.selected.url}" title="#{bundle.ViewFilesTitle_url}"/>
+                        <h:outputText value="#{bundle.ViewFilesLabel_activityId}"/>
+                        <h:outputText value="#{filesController.selected.activityId}" title="#{bundle.ViewFilesTitle_activityId}"/>
+                        <h:outputText value="#{bundle.ViewFilesLabel_taskId}"/>
+                        <h:outputText value="#{filesController.selected.taskId}" title="#{bundle.ViewFilesTitle_taskId}"/>
+                        <h:outputText value="#{bundle.ViewFilesLabel_userId}"/>
+                        <h:outputText value="#{filesController.selected.userId}" title="#{bundle.ViewFilesTitle_userId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="FilesViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

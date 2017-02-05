@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ActivityViewDlg" widgetVar="ActivityViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewActivityTitle}">
+            <h:form id="ActivityViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{activityController.selected != null}">
+                        <h:outputText value="#{bundle.ViewActivityLabel_activityId}"/>
+                        <h:outputText value="#{activityController.selected.activityId}" title="#{bundle.ViewActivityTitle_activityId}"/>
+                        <h:outputText value="#{bundle.ViewActivityLabel_name}"/>
+                        <h:outputText value="#{activityController.selected.name}" title="#{bundle.ViewActivityTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewActivityLabel_description}"/>
+                        <h:outputText value="#{activityController.selected.description}" title="#{bundle.ViewActivityTitle_description}"/>
+                        <h:outputText value="#{bundle.ViewActivityLabel_start}"/>
+                        <h:outputText value="#{activityController.selected.start}" title="#{bundle.ViewActivityTitle_start}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewActivityLabel_end}"/>
+                        <h:outputText value="#{activityController.selected.end}" title="#{bundle.ViewActivityTitle_end}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewActivityLabel_indikator}"/>
+                        <h:outputText value="#{activityController.selected.indikator}" title="#{bundle.ViewActivityTitle_indikator}"/>
+                        <h:outputText value="#{bundle.ViewActivityLabel_status}"/>
+                        <h:outputText value="#{activityController.selected.status}" title="#{bundle.ViewActivityTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewActivityLabel_completed}"/>
+                        <h:outputText value="#{activityController.selected.completed}" title="#{bundle.ViewActivityTitle_completed}"/>
+                        <h:outputText value="#{bundle.ViewActivityLabel_createdAt}"/>
+                        <h:outputText value="#{activityController.selected.createdAt}" title="#{bundle.ViewActivityTitle_createdAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewActivityLabel_strategicActivitiesId}"/>
+                        <h:outputText value="#{activityController.selected.strategicActivitiesId}" title="#{bundle.ViewActivityTitle_strategicActivitiesId}"/>
+                        <h:outputText value="#{bundle.ViewActivityLabel_strategyId}"/>
+                        <h:outputText value="#{activityController.selected.strategyId}" title="#{bundle.ViewActivityTitle_strategyId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ActivityViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

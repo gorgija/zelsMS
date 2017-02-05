@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FilesEditDlg" widgetVar="FilesEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditFilesTitle}">
+            <h:form id="FilesEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{filesController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditFilesLabel_fileId}" for="fileId" />
+                        <p:inputText id="fileId" value="#{filesController.selected.fileId}" title="#{bundle.EditFilesTitle_fileId}" required="true" requiredMessage="#{bundle.EditFilesRequiredMessage_fileId}"/>
+                        <p:outputLabel value="#{bundle.EditFilesLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{filesController.selected.name}" title="#{bundle.EditFilesTitle_name}" required="true" requiredMessage="#{bundle.EditFilesRequiredMessage_name}"/>
+                        <p:outputLabel value="#{bundle.EditFilesLabel_mimetype}" for="mimetype" />
+                        <p:inputText id="mimetype" value="#{filesController.selected.mimetype}" title="#{bundle.EditFilesTitle_mimetype}" required="true" requiredMessage="#{bundle.EditFilesRequiredMessage_mimetype}"/>
+                        <p:outputLabel value="#{bundle.EditFilesLabel_url}" for="url" />
+                        <p:inputText id="url" value="#{filesController.selected.url}" title="#{bundle.EditFilesTitle_url}" />
+                        <p:outputLabel value="#{bundle.EditFilesLabel_activityId}" for="activityId" />
+                        <p:selectOneMenu id="activityId" value="#{filesController.selected.activityId}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{activityController.itemsAvailableSelectOne}"
+                                           var="activityIdItem"
+                                           itemValue="#{activityIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditFilesLabel_taskId}" for="taskId" />
+                        <p:selectOneMenu id="taskId" value="#{filesController.selected.taskId}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tasksController.itemsAvailableSelectOne}"
+                                           var="taskIdItem"
+                                           itemValue="#{taskIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditFilesLabel_userId}" for="userId" />
+                        <p:selectOneMenu id="userId" value="#{filesController.selected.userId}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usersController.itemsAvailableSelectOne}"
+                                           var="userIdItem"
+                                           itemValue="#{userIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{filesController.update}" value="#{bundle.Save}" update="display,:FilesListForm:datalist,:growl" oncomplete="handleSubmit(args, 'FilesEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="FilesEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
