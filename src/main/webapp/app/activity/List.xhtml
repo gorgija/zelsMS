@@ -13,36 +13,34 @@
 
             <h:form id="ActivityListForm">
 
-                <p:dataGrid id="datagrid" value="#{activityController.items}" var="item"
-                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                <p:dataGrid id="datagrid" 
+                            value="#{activityController.items}" 
+                            var="item"
+                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                             paginator="true"
-                            columns="2"
+                            columns="3"
                             paginatorPosition="top"
                             rows="6"
-                            rowsPerPageTemplate="12,24,36,48,60"
+                            rowsPerPageTemplate="6,12,24"
                             >
-                    <p:fieldset legend="Activity Info">
-                        <p:panel header="#{item.name}" style="text-align:center">
 
-                        <h:panelGrid columns="2" style="width:100%">
+                    <p:panel header="#{item.completed eq 0?'IN PROGRESS':'FINISHED'}" style="text-align:center;" >
+                        <h:panelGrid columns="2" border="1" cellpadding="5" frame="border" rules="groups" style="width: 100%;float: left;" >
                             <f:facet name="header">
                                 <h3>
-                                    <h:outputLabel style="background: green;color: white;" value="#{item.completed eq 0?'IN PROGRESS':'FINISHED'}" />
+                                    <h:outputLabel  value="#{item.name}" />
                                 </h3>
                             </f:facet>
 
 
                             <h:outputLabel for="start" value="Start time" />
-                                <h:outputText id="start" value="#{item.start}" />
-
-                                <h:outputLabel for="end" value="End time" />
-                                <h:outputText id="end" value="#{item.end}" />
-
-                                <h:outputLabel for="indikator" value="Indikator:" />
-                                <h:outputText id="indikator" value="#{item.indikator}" />
-
-                                <h:outputLabel for="strategy" value="Strategy:" />
-                                <h:outputText id="strategy" value="#{item.strategyId}" />
+                            <h:outputText id="start" value="#{item.start}" style="font-weight: bolder;font-size: 1em;" />
+                            <h:outputLabel for="end" value="End time" />
+                            <h:outputText id="end" value="#{item.end}" style="font-weight: bolder;font-size: 1em;" />
+                            <h:outputLabel for="indikator" value="Indikator:" />
+                            <h:outputText id="indikator" value="#{item.indikator}" style="font-weight: bolder;font-size: small;" />
+                            <h:outputLabel for="strategy" value="Strategy:" />
+                            <h:outputText id="strategy" value="#{item.strategyId}" style="font-weight: bolder;font-size: small;" />
 
 
                             <f:facet name="footer">
@@ -53,7 +51,6 @@
                                     value="#{bundle.View}" 
                                     update=":ActivityViewForm" 
                                     oncomplete="PF('ActivityViewDialog').show()"
-
                                     >
                                     <f:setPropertyActionListener value="#{item}" target="#{activityController.selected}" />
                                 </p:commandButton>
@@ -72,11 +69,32 @@
                                     value="#{bundle.Delete}" 
                                     actionListener="#{activityController.destroy}" 
                                     update=":growl,datagrid" />
+                                <p:commandButton 
+                                    id="asignTo" 
+                                    icon="ui-icon-people"  
+                                    value=" Team..." 
+                                    />
                             </f:facet>
                         </h:panelGrid>
+                        <!--                        <p:panelGrid columns="2">
+                                                    <p:outputLabel for="tasks" value="Tasks:" />
+                            <p:selectManyMenu id="tasks" >
+                                <f:selectItem itemLabel="Task 1" />
+                                <f:selectItem itemLabel="Task 2" />
+                                <f:selectItem itemLabel="Task 3" />
+                                <f:selectItem itemLabel="Task 4" />
+                            </p:selectManyMenu>
+                            <p:outputLabel for="files" value="Files:" />
+                            <p:selectManyMenu id="files" >
+                                <f:selectItem itemLabel="Doc 1" />
+                                <f:selectItem itemLabel="Doc 2" />
+                                <f:selectItem itemLabel="Doc 3" />
+                                <f:selectItem itemLabel="Doc 4" />
+                            </p:selectManyMenu>
+                                                                        </p:panelGrid>-->
                     </p:panel>
-</p:fieldset>
-<f:facet name="footer">
+
+                    <f:facet name="footer">
                         <p:commandButton 
                             id="createButton" 
                             icon="ui-icon-plus"   
@@ -89,8 +107,9 @@
                             icon="ui-icon-plus"   
                             value="Create New Team" 
                             actionListener="#{teamsController.prepareCreate}" 
-                            update=":TeamsCreateForm" 
-                            oncomplete="PF('TeamsCreateDialog').show()"/>
+
+                            /><!--                            update=":TeamsCreateForm" 
+                                                        oncomplete="PF('TeamsCreateDialog').show()"-->
                     </f:facet>
                 </p:dataGrid>
             </h:form>
@@ -98,22 +117,15 @@
 
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
+            <ui:include src="View.xhtml" />
 
-            <p:dialog id="TeamsCreateDlg" widgetVar="TeamsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTeamsTitle}">
-                <h:form id="TeamsCreateForm">
-                    <h:panelGroup id="display">
-                        <p:panelGrid columns="2" rendered="#{teamsController.selected != null}">
-                            <p:outputLabel value="#{bundle.CreateTeamsLabel_teamId}" for="teamId" />
-                            <p:inputText id="teamId" value="#{teamsController.selected.teamId}" title="#{bundle.CreateTeamsTitle_teamId}" required="true" requiredMessage="#{bundle.CreateTeamsRequiredMessage_teamId}"/>
-                            <p:outputLabel value="#{bundle.CreateTeamsLabel_name}" for="name" />
-                            <p:inputText id="name" value="#{teamsController.selected.name}" title="#{bundle.CreateTeamsTitle_name}" required="true" requiredMessage="#{bundle.CreateTeamsRequiredMessage_name}"/>
-                        </p:panelGrid>
-                        <p:commandButton actionListener="#{teamsController.create}" value="#{bundle.Save}" update="display,:growl" oncomplete="handleSubmit(args,'TeamsCreateDialog');"/>
-                        <p:commandButton value="#{bundle.Cancel}" onclick="TeamsCreateDialog.hide()"/>
-                    </h:panelGroup>
-                </h:form>
+            <p:dialog header="Asign Employees" modal="true" showEffect="fade" widgetVar="dlg" resizable="false" >
+                <p:selectManyMenu id="advanced" value="#{activityController.selected}" converter="userConverter"
+                                  var="user" filter="true" filterMatchMode="contains" showCheckbox="true">
+                    <f:selectItems value="#{usersController.items}" var="user" itemLabel="#{user.email}" itemValue="#{user}" />
+                </p:selectManyMenu>
             </p:dialog>
+
         </ui:define>
     </ui:composition>
 

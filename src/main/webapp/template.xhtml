@@ -25,7 +25,11 @@
                         <p:menuitem><p:spacer width="50" /></p:menuitem>
                         <p:menuitem ><p:clock  /></p:menuitem>
                         <p:menuitem><p:spacer width="50" /></p:menuitem>
-                        <p:menuitem > <p:graphicImage library="img" name="logo.png" width="30" />  </p:menuitem>
+                        <p:menuitem> 
+                            <p:graphicImage library="img" name="logo_i.png" width="30" /> 
+
+                        </p:menuitem>
+                        <p:menuitem><h2 >ЗЕЛС </h2> </p:menuitem>
                         <p:menuitem><p:spacer width="50" /></p:menuitem>
                         <p:menuitem  value="#{bundle.Home}" outcome="/app/index" icon="ui-icon-home"/>
                         <p:menuitem value="Activity" outcome="/app/activity/List.xhtml" />
@@ -45,9 +49,17 @@
                 </h:form>
             </p:layoutUnit>
 
-            <p:layoutUnit position="west" size="200" header="Filters" collapsible="true" resizable="true">
+            <p:layoutUnit position="west" size="200" style="max-width: 300px;" header="Filters" collapsible="true" resizable="true">
                 <h:form>
                     <p:panelMenu  >
+                        <p:submenu label="Search">
+                            <p:menuitem value="Search" style="width: 100%;" >
+                                <p:panelGrid columns="1">
+                                    SEARCH STRING
+                                    <p:inputText />
+                                </p:panelGrid>
+                            </p:menuitem>
+                        </p:submenu>
                         <p:submenu label="Date" >
                             <p:menuitem value="Year" style="width: 100%;" >
                                 <p:panelGrid columns="2">
